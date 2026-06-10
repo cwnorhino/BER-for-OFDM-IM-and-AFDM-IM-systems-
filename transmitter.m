@@ -7,7 +7,6 @@ function txSignal = transmitter(bits, N, K, M, cpLen, N_F)
 %   M       - QAM order (power of 2)
 %   cpLen   - cyclic prefix length
 %   N_F     - total subcarriers (multiple of N)
-% Output:
 %   txSignal - time-domain transmitted signal (column vector
 
 assert(mod(N_F, N) == 0, 'N_F must be multiple of N');
