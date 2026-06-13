@@ -19,13 +19,11 @@ assert(length(bits) == total_bits, 'Bit length mismatch');
 
 % Reshape bits into subblocks (G rows, p columns)
 bits_matrix = reshape(bits, p, G).';
-
 X_freq = zeros(N_F, 1);
 
 for g = 1:G
     idx_bits = bits_matrix(g, 1:p1);
     sym_bits = bits_matrix(g, p1+1:end);
-
 
     % Convert p1 bits to integer using bit2int (MSB first)
     idx_val = bit2int(idx_bits(:), p1, true);  
@@ -36,7 +34,6 @@ for g = 1:G
     sym_ints = bit2int(sym_bits_matrix, log2(M), true);
     symbols = qammod(sym_ints, M, 'UnitAveragePower', true);
 
- 
     global_pos = (g-1)*N + active_local + 1;
     X_freq(global_pos) = symbols;
 end
@@ -57,27 +54,22 @@ current = idx_val;
 
 for k = K:-1:1
     n = N - 1;
-
-
     while true  
-     
         if n < k
             val = 0;
         else
             val = nchoosek(n, k);
         end
-
         if val <= current
             break;
         end
         n = n - 1;
     end
-
     active_local(k) = n;
 
-    
     if n >= k
         current = current - nchoosek(n, k);
     end
 end
+
 end
